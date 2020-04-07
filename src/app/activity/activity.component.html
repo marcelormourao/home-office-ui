@@ -1,0 +1,83 @@
+<mat-card class="card">
+  <div [formGroup]="form">
+    <div class=filters>
+      <div class="date-filter">
+        <label class="required">Data</label>
+        <mat-form-field class="fill">
+            <input (dateChange)="dateChange($event)" class="input-date-picker" formControlName="date" matInput [matDatepicker]="picker" disabled>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+        </mat-form-field>
+      </div>
+  
+      <div class="user">
+        <label>Usuário</label>
+        <mat-form-field class="fill">
+            <mat-select formControlName="user" (selectionChange)="userChange($event)">
+                <mat-option *ngFor="let user of users" [value]="user">
+                {{user.nome}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+    <div>
+        <mat-form-field class="filter">
+            <mat-label>Pesquisar</mat-label>
+            <input matInput (keyup)="applyFilter($event)">
+          </mat-form-field>
+          
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="id">
+                  <th class="id" mat-header-cell *matHeaderCellDef> Id </th>
+                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="user">
+                  <th class="user" mat-header-cell *matHeaderCellDef> Usuário </th>
+                  <td mat-cell *matCellDef="let element"> {{element.user.nome}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="date">
+                  <th class="date" mat-header-cell *matHeaderCellDef> Data </th>
+                  <td mat-cell *matCellDef="let element"> {{element.date | date:'dd/MM/yyyy'}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="description">
+                  <th class="description" mat-header-cell *matHeaderCellDef> Descrição </th>
+                  <td class="description" mat-cell *matCellDef="let element"> {{element.description}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="actions">
+                    <th class="action-table-header" mat-header-cell *matHeaderCellDef> Ações </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="action-buttons">
+                            <button mat-raised-button (click)="edit(element)">Editar</button>
+                            <button mat-raised-button color="warn" (click)="remove(element)">Remover</button> 
+                        </div>
+                    </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+
+              <mat-paginator
+                [pageIndex]="pageNumber"
+                [pageSize]="pageSize"
+                [length]="totalElements"
+                (page)="pageEvent = changePage($event)"
+                showFirstLastButtons
+             ></mat-paginator>
+
+          </div>
+    </div>
+    
+    <div class="button-bar">
+        <button mat-raised-button color="primary" [routerLink]="['form']">Novo</button>
+        <button mat-raised-button (click)="exportCSV()">Exportar CSV</button>
+    </div>
+</mat-card>

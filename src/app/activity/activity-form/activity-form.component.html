@@ -1,0 +1,68 @@
+<mat-card class="card">
+
+    <div [formGroup]="form">
+        <div>
+            <label class="required">Usuário</label>
+            <mat-form-field class="fill">
+                <mat-select formControlName="user" [compareWith]="compareCategoryObjects">
+                    <mat-option *ngFor="let user of users" [value]="user">
+                    {{user.nome}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    
+        <div>
+            <label class="required">Data</label>
+            <mat-form-field class="fill">
+                <input class="input-date-picker" formControlName="date" matInput [matDatepicker]="picker" disabled>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker disabled="false"></mat-datepicker>
+            </mat-form-field>
+        </div>
+    
+        <div>
+            <label class=" required description">Atividade</label>
+            <mat-form-field class="fill" appearance="fill">
+                <textarea rows="8" formControlName="description" matInput></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="period-bar">
+            <div>
+                <mat-form-field>
+                    <mat-label class="required">Batida inicial</mat-label>
+                    <input formControlName="initialTime" matInput [dropSpecialCharacters]="false" [clearIfNotMatch]="true" mask="Hh:m0">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <mat-label class="required">Saída almoço</mat-label>
+                    <input formControlName="lunchTime" matInput [dropSpecialCharacters]="false" [clearIfNotMatch]="true" mask="Hh:m0">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <mat-label class="required">Retorno almoço</mat-label>
+                    <input formControlName="lunchReturn" matInput [dropSpecialCharacters]="false" [clearIfNotMatch]="true" mask="Hh:m0">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <mat-label class="required">Batida final</mat-label>
+                    <input formControlName="finalPeriod" matInput [dropSpecialCharacters]="false" [clearIfNotMatch]="true" mask="Hh:m0">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="button-bar">
+            <button mat-raised-button color="primary" (click)="save()">Salvar</button>
+            <button mat-raised-button (click)="clear()">Limpar</button>
+            <button mat-raised-button [routerLink]="['..']">Voltar</button>
+        </div>
+    </div>
+
+</mat-card>

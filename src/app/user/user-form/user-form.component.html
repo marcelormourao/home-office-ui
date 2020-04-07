@@ -1,0 +1,19 @@
+<mat-card class="card">
+
+    <div [formGroup]="form">
+    
+        <div>
+            <label class=" required description">Nome</label>
+            <mat-form-field class="fill" appearance="fill">
+                <input rows="8" formControlName="nome" matInput>
+            </mat-form-field>
+        </div>
+
+        <div class="button-bar">
+            <button mat-raised-button color="primary" (click)="save()">Salvar</button>
+            <button mat-raised-button (click)="clear()">Limpar</button>
+            <button mat-raised-button [routerLink]="['..']">Voltar</button>
+        </div>
+    </div>
+
+</mat-card>

@@ -1,0 +1,72 @@
+.card {
+    width: 80vw;
+    height: 100%;
+}
+
+table {
+    width: 100%;
+
+    td.description, th.description {
+        max-width: 30vw;
+    }
+
+    td.description {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        // word-wrap:break-word;
+    }
+}
+
+.filter {
+    width: 100%;
+}
+
+.id {
+    width: 9%;
+}
+
+.user {
+    width: 20%;
+}
+
+.date {
+    width: 100px;
+}
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .date-filter {
+        margin-right: 15px;
+    }
+
+    .user {
+        width: 100%;
+    }
+
+    .fill {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .filters {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .date-filter {
+            margin-right: 0;
+        }
+    }
+
+    table {
+        td.description, th.description {
+            display: none;
+        }
+    }
+}
+
