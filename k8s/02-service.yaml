@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-office-ui
+spec:
+  type: LoadBalancer
+  selector:
+    app: home-office-ui
+  ports:
+    - port: 80
+      targetPort: 80
+      

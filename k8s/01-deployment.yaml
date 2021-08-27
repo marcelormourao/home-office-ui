@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-office-ui
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: home-office-ui
+  template:
+    metadata:
+      labels:
+        app: home-office-ui
+    spec:
+      containers:
+        - name: home-office-ui
+          image: marcelormourao/home-office-ui:latest
+          imagePullPolicy: "IfNotPresent" #"Always"
+          ports:
+            - containerPort: 80
+          env:
+            - name: BACKEND_URL
+              value: http://home-office-api:8080
+          livenessProbe:
+            httpGet:
+              path: /home-office-ui
+              port: 80
+              httpHeaders:
+              - name: Custom-Header
+                value: Awesome
+            initialDelaySeconds: 3
+            periodSeconds: 3
+
+          readinessProbe:
+            httpGet:
+              path: /home-office-ui
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 3
